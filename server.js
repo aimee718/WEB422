@@ -5,7 +5,7 @@ const RestaurantDB = require("./modules/restaurantDB.js");
 //const router = require('express').Router();
 
 var app = express();
-var HTTP_PORT=3000;
+var HTTP_PORT=process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true}));
