@@ -38,3 +38,14 @@ app.get('/api/restaurants', (req, res) => {
         })
         .catch(err => res.status(500).send(err));
 });
+
+app.get('/api/restaurants/:id', (req, res) => {
+    db.getRestaurantById(req.params.id)
+        .then((data) => {
+            if (!data) return res.status(404).send({ err: 'id not found' });
+            res.send(`findOne successfully: ${data}`);
+            //res.json(todo);
+            
+        })
+        .catch(err => res.status(500).send(err));
+  });
