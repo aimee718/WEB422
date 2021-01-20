@@ -38,7 +38,7 @@ app.get('/api/restaurants', (req, res) => {
         })
         .catch(err => res.status(500).send(err));
 });
-
+//find one by id
 app.get('/api/restaurants/:id', (req, res) => {
     db.getRestaurantById(req.params.id)
         .then((data) => {
@@ -48,4 +48,51 @@ app.get('/api/restaurants/:id', (req, res) => {
             
         })
         .catch(err => res.status(500).send(err));
+  });
+//update
+  app.put('/api/restaurants/:id',(req,res)=>{
+    if(!req.body.content) {
+        return res.status(400).send({message: "Body can not be empty"});
+    }else{
+        var data = req.body;
+        var id=req.params.id;
+        //var data1 = { name : "nodejsera.com222" };
+        //console.log(JSON.stringify(req.body)+'/'+JSON.stringify(data1)+'/'+id);
+        
+        db.updateRestaurantById(data,id)
+            .then(() => {
+                res.status(201).json({ message: 'updated successfully!'});
+            })
+            .catch( (error) => {res.status(400).json({error: error});
+            });
+    }
+      
+  });
+//delete
+  app.delete('/api/restaurants/:id',(req,res)=>{
+    if(req.params.id.length < 1) {
+        return res.status(400).send({message: "Parmas can not be empty"});
+    }else{
+        db.deleteRestaurantById(req.params.id)
+            .then(() => {
+                res.status(200).json({ message: 'Deleted!'});
+            })
+            .catch(
+            (error) => {
+                res.status(400).json({ error: error});
+            });
+    }
+  });
+// add new
+  app.post('/api/restaurants',(req,res)=>{
+    console.log(req.body);
+    //if(!req.body.content) {
+    //    return res.status(400).send({ message: "Body can not be empty-add"});
+    //}
+    
+    db.addNewRestaurant(req.body)
+    .then(data => {res.send(data);
+    }).catch(err => {
+        res.status(500).send({message: err.message || "Some error occurred while Add New Data." });
+    });
   });
