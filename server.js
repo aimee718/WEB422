@@ -1,8 +1,18 @@
+/*********************************************************************************
+* WEB422 – Assignment 1
+* I declare that this assignment is my own work in accordance with Seneca Academic Policy.
+* No part of this assignment has been copied manually or electronically from any other source
+* (including web sites) or distributed to other students.
+*
+* Name: Aimee Lee    Student ID: 056342132 Date: 01-22-2020
+* Heroku Link: https://web422-restaurants.herokuapp.com/
+*
+********************************************************************************/ 
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const RestaurantDB = require("./modules/restaurantDB.js");
-//const router = require('express').Router();
 
 var app = express();
 var HTTP_PORT=process.env.PORT || 3000;
@@ -14,7 +24,7 @@ app.use(bodyParser.json());
 const dbAddress = "mongodb+srv://aimee718:Aimee718!@cluster0.co6oi.mongodb.net/sample_restaurants?retryWrites=true&w=majority";
 const db= new RestaurantDB(dbAddress);
 
-app.get("/", (req, res) => res.send("Hello world999!!!!"));
+app.get("/", (req, res) => res.send("Hello world!!!!"));
 
 db.initialize()
 .then(()=>{
@@ -30,7 +40,7 @@ app.get('/api/restaurants', (req, res) => {
     var page = req.query.page;
     var perPage=req.query.perPage;
     var borough = req.query.borough;
-    //console.log(page+'/'+perPage+'/'+borough);
+
     db.getAllRestaurants(page, perPage, borough)
         .then((data)=>{
             if (!data.length) return res.status(404).send({ err: 'restaurants not found' });
@@ -38,26 +48,24 @@ app.get('/api/restaurants', (req, res) => {
         })
         .catch(err => res.status(500).send(err));
 });
-//find one by id
+
 app.get('/api/restaurants/:id', (req, res) => {
     db.getRestaurantById(req.params.id)
         .then((data) => {
             if (!data) return res.status(404).send({ err: 'id not found' });
             res.send(`findOne successfully: ${data}`);
-            //res.json(todo);
             
         })
         .catch(err => res.status(500).send(err));
   });
-//update
+
   app.put('/api/restaurants/:id',(req,res)=>{
-    if(!req.body.content) {
+    if(req.params.id.length < 1)  {
         return res.status(400).send({message: "Body can not be empty"});
     }else{
         var data = req.body;
         var id=req.params.id;
-        //var data1 = { name : "nodejsera.com222" };
-        //console.log(JSON.stringify(req.body)+'/'+JSON.stringify(data1)+'/'+id);
+        console.log("aaa="+JSON.stringify(req.body)+'/'+id);
         
         db.updateRestaurantById(data,id)
             .then(() => {
@@ -68,7 +76,7 @@ app.get('/api/restaurants/:id', (req, res) => {
     }
       
   });
-//delete
+
   app.delete('/api/restaurants/:id',(req,res)=>{
     if(req.params.id.length < 1) {
         return res.status(400).send({message: "Parmas can not be empty"});
@@ -83,12 +91,9 @@ app.get('/api/restaurants/:id', (req, res) => {
             });
     }
   });
-// add new
-  app.post('/api/restaurants',(req,res)=>{
+
+app.post('/api/restaurants',(req,res)=>{
     console.log(req.body);
-    //if(!req.body.content) {
-    //    return res.status(400).send({ message: "Body can not be empty-add"});
-    //}
     
     db.addNewRestaurant(req.body)
     .then(data => {res.send(data);

@@ -1,3 +1,14 @@
+/*********************************************************************************
+* WEB422 – Assignment 1
+* I declare that this assignment is my own work in accordance with Seneca Academic Policy.
+* No part of this assignment has been copied manually or electronically from any other source
+* (including web sites) or distributed to other students.
+*
+* Name: Aimee Lee    Student ID: 056342132 Date: 01-22-2020
+* Heroku Link: https://web422-restaurants.herokuapp.com/
+*
+********************************************************************************/ 
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -22,7 +33,7 @@ const restaurantSchema = new Schema({
 module.exports = class RestaurantDB{
     constructor(connectionString){
         this.connectionString = connectionString;
-        this.Restaurant = null; // no "Restaurant" object until "initialize" is complete
+        this.Restaurant = null; 
     }
 
     initialize(){
@@ -40,6 +51,7 @@ module.exports = class RestaurantDB{
     }
 
     async addNewRestaurant(data){
+        console.log('add='+JSON.stringify(data));
         let newRestaurant = new this.Restaurant(data);
         await newRestaurant.save();
         return `new restaurant: ${newRestaurant._id} successfully added`
