@@ -1,0 +1,4 @@
+.mat-list-item .mat-icon:hover{ cursor: pointer; } 
+.app-class .mat-list-item{
+    height: auto;
+}
