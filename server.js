@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 const dbAddress = "mongodb+srv://aimee718:Aimee718!@cluster0.co6oi.mongodb.net/sample_restaurants?retryWrites=true&w=majority";
+//const dbAddress = "mongodb+srv://john821:7789@Pos7789@cluster0.7oi1d.mongodb.net/sample_restaurants?retryWrites=true&w=majority";
 const db= new RestaurantDB(dbAddress);
 
 app.get("/", (req, res) => res.send("Hello world!!!!"));
@@ -44,8 +45,7 @@ app.get('/api/restaurants', (req, res) => {
     db.getAllRestaurants(page, perPage, borough)
         .then((data)=>{
             if (!data.length) return res.status(404).send({ err: 'restaurants not found' });
-            //res.send(`find successfully: ${data}`);
-              res.json(data);
+            res.send(`find successfully: ${data}`);
         })
         .catch(err => res.status(500).send(err));
 });
@@ -54,8 +54,8 @@ app.get('/api/restaurants/:id', (req, res) => {
     db.getRestaurantById(req.params.id)
         .then((data) => {
             if (!data) return res.status(404).send({ err: 'id not found' });
-            //res.send(`findOne successfully: ${data}`);
-            res.json(data);
+            res.send(`findOne successfully: ${data}`);
+            
         })
         .catch(err => res.status(500).send(err));
   });
