@@ -1,0 +1,38 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './about/about.component';
+import { AlbumComponent } from './album/album.component';
+import { ArtistDiscographyComponent } from './artist-discography/artist-discography.component';
+import { DriverComponent } from './driver/driver.component';
+import { FavouritesComponent } from './favourites/favourites.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { NewReleasesComponent } from './new-releases/new-releases.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RegisterComponent } from './register/register.component';
+import { SearchResultComponent } from './search-result/search-result.component';
+
+const routers : Routes = [  //Routing
+ 
+  {path : 'about' , component :AboutComponent}, 
+  {path : 'newReleases' , component :NewReleasesComponent},
+  {path : 'album/:id',component : AlbumComponent},
+  {path : 'artist/:id',component : ArtistDiscographyComponent},
+  {path : 'search',component : SearchResultComponent},
+  {path : 'favourites',component : FavouritesComponent},
+  {path : 'driver',component : DriverComponent},
+  {path : 'home', component: HomeComponent },
+  {path : 'login', component: LoginComponent },
+  {path : 'register', component: RegisterComponent },
+  {path : '', redirectTo: '/newReleases', pathMatch: 'full' },
+  {path : '**', component: NotFoundComponent }
+
+  //{path : '**', redirectTo : 'newReleases',  pathMatch : 'full'}
+]
+
+
+@NgModule({
+  imports: [RouterModule.forRoot(routers)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
