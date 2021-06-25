@@ -1,0 +1,21 @@
+.form-group input.ng-invalid.ng-touched, 
+.form-group input.ng-invalid:focus, 
+.form-group select.ng-invalid.ng-touched, 
+/*.form-group textarea.ng-invalid.ng-touched,*/
+
+.form-submit select.ng-invalid,
+.form-submit  textarea.ng-invalid
+{
+    border-color: #ff4c6a;
+}
+
+.invalid-feedback.form-error {
+    display: block;
+}
+
+.form-group input.ng-invalid {
+    background-color:pink;
+}
+.form-group textarea.ng-valid {
+    background-color:rgb(177, 144, 238);
+}
