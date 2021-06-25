@@ -1,0 +1,40 @@
+<mat-card>
+    <mat-card-content>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <h2>Log In</h2>
+        <mat-error> {{ warning }}</mat-error><br />
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="User Name" id="userName" name="userName" class="form-control"
+          [(ngModel)]="user.userName" #name="ngModel" required autofocus>
+          <mat-error >
+            <ul class="alert-error" *ngIf="name.touched && name.errors">
+              <li *ngIf="name.errors.required"> Please provide a valid user name </li>
+            </ul>
+          </mat-error>
+        </mat-form-field><br />
+        <mat-form-field class="full-width-input">
+          <input matInput type="password" placeholder="Password" id="password" name="password" password="password"
+          [(ngModel)]="user.password" #name="ngModel"  required autofocus>
+          <mat-error>
+            <ul class="alert-error" *ngIf="name.touched && name.errors">
+              <li *ngIf="name.errors.required"> Please provide a valid user name </li>
+            </ul>
+          </mat-error>
+        </mat-form-field><br />
+        <button mat-raised-button color="accent" type="submit">
+          <mat-icon>login</mat-icon>
+          <span>&nbsp;&nbsp;&nbsp;Login</span>
+        </button>
+        &nbsp;&nbsp;
+        <button [disabled]="loading" mat-raised-button color="primary">
+          <mat-icon>account_box</mat-icon>
+          <span>&nbsp;&nbsp;&nbsp;
+            <a [routerLink]="['/register']" >Register</a></span>
+        </button>
+      </form>
+     
+    </mat-card-content>
+  </mat-card>
+  
+  
+
