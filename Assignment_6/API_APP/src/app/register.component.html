@@ -1,0 +1,50 @@
+<mat-card>
+    <mat-card-content>
+        <form #f="ngForm" name="form" (ngSubmit)='onSubmit(f)' >
+            {{registerUser | json}}
+            <h2>Register</h2>
+            <mat-error> {{warning}}</mat-error><br />
+            <mat-form-field class="full-width-input"
+            class="form-group" >
+                <input matInput placeholder="User Name" name="userName" id="userName" class="form-control"
+                [(ngModel)]="registerUser.userName" #name="ngModel" required autofocus>
+                <mat-error >
+                    <ul class="alert-error" *ngIf="name.touched && name.errors">
+                        <li *ngIf="name.errors.required"> Please provide a valid user name </li>
+                    </ul>   
+                </mat-error>
+               
+            </mat-form-field><br />
+            <mat-form-field class="full-width-input">
+                <input matInput type="password" placeholder="Password" name="password" 
+                [(ngModel)]="registerUser.password" #name="ngModel" required autofocus>
+                <mat-error >
+                    <ul class="alert-error" *ngIf="name.touched && name.errors">
+                        <li *ngIf="name.errors.required"> Please provide a valid password </li>
+                    </ul>  
+                </mat-error>
+            </mat-form-field><br />
+            <mat-form-field class="full-width-input">
+                <input matInput type="password" placeholder="Password" name="password2" 
+                [(ngModel)]="registerUser.password2" #name="ngModel" required autofocus>
+                <mat-error >
+                    <ul class="alert-error" *ngIf="name.touched && name.errors">
+                        <li *ngIf="name.errors.required"> Please provide a valid password2 </li>
+                    </ul> 
+                </mat-error>
+            </mat-form-field><br />
+            <button [disabled]="loading" mat-raised-button color="primary" type="submit">
+                <mat-icon>account_box</mat-icon>
+                <span>&nbsp;&nbsp;&nbsp;Register</span>
+            </button>
+        </form>
+    </mat-card-content>
+    <div class="success" *ngIf="success" >Registration Successful. Proceed to<br /><br /> 
+        <a mat-raised-button color="accent" >
+            <mat-icon>login</mat-icon>&nbsp;&nbsp;&nbsp;
+            <a [routerLink]="['/login']">Login</a>
+        </a> 
+    </div>
+</mat-card>
+
+
