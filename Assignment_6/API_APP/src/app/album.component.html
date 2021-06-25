@@ -1,0 +1,60 @@
+<p>album works!!!</p>
+<h1><div>{{data99}}   {{ id }}</div></h1>
+<br/>
+<div>Full track listing for {{data99}}</div>
+<br/>
+<mat-card>
+
+    <mat-card-content fxLayout="row wrap" fxLayout.xs="column">
+        
+        <!-- <div fxflex *ngFor="let e of data88"> -->
+             <img [src]= "data77" alt="album cover" 
+                [style.margin]="'10px'" [style.max-width]="'90%'" />
+        <!-- </div> -->
+         <div fxFlex *ngFor="let d1 of data88">
+            <div [style.min-width]="'300px'" [style.margin]="'10px'">
+                <strong>Record Label: </strong> {{ d1.label }}<br />
+                 <strong>Release Date: </strong> {{ d1.release_date | date :  "M/d/yy" }}<br /><br />
+
+                <strong>Tracks:</strong> {{d1.total_tracks}}<br />
+                <strong>Popularity: </strong>{{d1.popularity}}<br /><br />
+                <div >
+                <mat-chip-list aria-label="Artist selection" >
+                    <mat-chip>
+                        <div [routerLink]="['/artist',d1.art_id]">
+                           
+                            {{d1.artistname}}
+                        </div><br/>
+                        <!-- <div [routerLink]="['/artist',d1.art_id]">
+                           
+                            {{d1.artistname}}  {{d1.art_id}}
+                        </div> -->
+                    </mat-chip>
+                </mat-chip-list>
+                </div>
+                <br />
+
+                <div>{{d1.copyrights}}</div>
+                
+                
+            </div>
+        </div> 
+    </mat-card-content>
+</mat-card>
+<br /><br />
+<h2>Track Listing</h2>
+
+<mat-list>
+    <!-- Single "Responsive" Material List Item-->
+    <mat-list-item *ngFor="let tr of tr_items">
+        <mat-icon mat-list-icon (click)="addFav(tr.trackID)" >queue_music</mat-icon>
+        <div mat-line>
+            <mat-card>
+                <mat-card-content >
+                    {{tr.track_no}} {{tr.track_name}} - {{(tr.duration_ms/60000).toFixed(2)}} <br/>
+                    <div *ngIf="tr.preview_url"><br /><audio controls [src]="tr.preview_url"></audio></div>                    
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-list-item> 
+</mat-list>
